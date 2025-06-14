@@ -24,6 +24,7 @@ export default function IssuesPage() {
       state: issue.state,
       author: issue.user.login,
       created_at: issue.created_at,
+      html_url: issue.html_url,
     })) || [];
 
   function parseRepoUrl(input: string): { owner: string; repo: string } | null {

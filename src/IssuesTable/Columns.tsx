@@ -9,6 +9,7 @@ export type Issue = {
   state: "open" | "closed";
   author: string;
   created_at: string;
+  html_url?: string;
 };
 
 export const columns: ColumnDef<Issue>[] = [
@@ -19,12 +20,19 @@ export const columns: ColumnDef<Issue>[] = [
     enableResizing: false,
     cell: ({ row }) => {
       const title = row.original.title;
+      const url = row.original.html_url; // 👈 make sure this is provided
       const truncated =
         title.length > 100 ? title.slice(0, 100) + "..." : title;
       return (
-        <div className="text-left truncate pr-2" title={title}>
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={title}
+          className="text-left text-blue-600 hover:underline block truncate pr-2"
+        >
           {truncated}
-        </div>
+        </a>
       );
     },
   },
