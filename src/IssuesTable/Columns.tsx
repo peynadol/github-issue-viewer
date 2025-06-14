@@ -72,7 +72,14 @@ export const columns: ColumnDef<Issue>[] = [
     accessorKey: "created_at",
     header: "Created At",
     cell: ({ row }) => {
-      return <div className="text-left">{row.original.created_at}</div>;
+      const raw = row.original.created_at;
+      const formatted = new Date(raw).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+
+      return <div className="text-left">{formatted}</div>;
     },
   },
 ];
