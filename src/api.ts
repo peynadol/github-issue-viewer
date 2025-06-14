@@ -15,5 +15,9 @@ export const fetchIssues = async ({ author, repo }: fetchIssueParams) => {
       Authorization: `Bearer ${token}`,
     },
   });
+
+  if (!data.ok) {
+    throw new Error(`Error fetching issues: ${data.statusText}`);
+  }
   return data.json();
 };
