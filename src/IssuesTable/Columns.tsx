@@ -52,21 +52,27 @@ export const columns: ColumnDef<Issue>[] = [
     accessorKey: "author",
     header: "Author",
     cell: ({ row }) => {
-      return <div className="text-left">{row.original.author}</div>;
+      const username = row.original.author;
+      const profileUrl = `https://github.com/${username}`;
+      return (
+        <div className="text-left">
+          <a
+            href={profileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            {username}
+          </a>
+        </div>
+      );
     },
   },
   {
     accessorKey: "created_at",
     header: "Created At",
     cell: ({ row }) => {
-      const raw = row.original.created_at;
-      const formatted = new Date(raw).toLocaleDateString("en-GB", {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      });
-
-      return <div className="text-left">{formatted}</div>;
+      return <div className="text-left">{row.original.created_at}</div>;
     },
   },
 ];
