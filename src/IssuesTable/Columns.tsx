@@ -1,4 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { type ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown } from "lucide-react";
 
 export type Issue = {
   title: string;
@@ -70,7 +72,17 @@ export const columns: ColumnDef<Issue>[] = [
   },
   {
     accessorKey: "created_at",
-    header: "Created At",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Created At
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const raw = row.original.created_at;
       const formatted = new Date(raw).toLocaleDateString("en-GB", {
